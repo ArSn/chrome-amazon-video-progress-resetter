@@ -1,0 +1,1 @@
+# chrome-amazon-video-progress-resetter
