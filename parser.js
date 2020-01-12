@@ -7,7 +7,7 @@ function pageLooksLikeSeasonPage() {
 }
 
 
-chrome.runtime.onMessage.addListener(function (msg, sender) {
+chrome.runtime.onMessage.addListener(function (msg) {
 
     console.log('message received');
 
