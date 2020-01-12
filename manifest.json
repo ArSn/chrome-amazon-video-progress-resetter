@@ -1,0 +1,21 @@
+{
+  "name": "Amazon Video Progress Resetter",
+  "version": "0.1",
+  "description": "Reset the Amazon Video progress of whole seasons with a single click. Perfect for re-watching tv shows.",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": {
+      "24": "images/rewind-24.png",
+      "32": "images/rewind-32.png",
+      "64": "images/rewind-64.png"
+    },
+    "default_title": "Rewind Videos"
+  },
+  "permissions": [
+    "declarativeContent"
+  ]
+}
