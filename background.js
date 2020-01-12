@@ -13,4 +13,14 @@ chrome.runtime.onInstalled.addListener(function() {
             }
         ]);
     });
+
+    chrome.pageAction.onClicked.addListener(function (tab) {
+
+        console.log('clicked...');
+        chrome.tabs.sendMessage(tab.id, {text: 'reset_progress'});
+
+    });
 });
+
+
+console.log('background registered');
