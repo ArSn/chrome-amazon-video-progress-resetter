@@ -3,13 +3,12 @@
 console.log('start of parser');
 
 function pageLooksLikeSeasonPage() {
-	// todo: check whether page looks like video page and there are episodes to reset
-	return true;
+	return parseEpisodes() !== false;
 }
 
 function parseEpisodes() {
 	let titles = document.querySelectorAll('.js-episode-title-name span');
-	if (!titles) {
+	if (!titles || !titles.length) {
 		return false;
 	}
 
@@ -33,9 +32,9 @@ chrome.runtime.onMessage.addListener(function (msg) {
 	if (msg.text === 'reset_progress') {
 		console.log('parsing ...');
 
-		parseEpisodes();
+		// parseEpisodes();
+		// return;
 
-		return;
 		if (pageLooksLikeSeasonPage()) {
 			let confirmation = confirm('Are you sure you want to reset the progress?');
 			console.log('continue resetting? ', confirmation);
