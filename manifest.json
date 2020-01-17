@@ -4,7 +4,9 @@
   "description": "Reset the Amazon Video progress of whole seasons with a single click. Perfect for re-watching tv shows.",
   "manifest_version": 2,
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
   "page_action": {
@@ -15,10 +17,16 @@
     },
     "default_title": "Rewind Videos"
   },
-  "content_scripts": [{
-    "matches": ["<all_urls>"],
-    "js": ["parser.js"]
-  }],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "parser.js"
+      ]
+    }
+  ],
   "permissions": [
     "declarativeContent",
     "tabs",
