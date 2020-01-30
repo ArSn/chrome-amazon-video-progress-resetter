@@ -1,5 +1,20 @@
 'use strict';
 
+function resetEpisodes(items) {
+	items.forEach(function (element) {
+		resetSingleEpisode(element);
+	});
+}
+
+function resetSingleEpisode(item) {
+	let url;
+	url = 'https://' + item.domain + '/gp/video/detail/' + item.id + '/?autoplay=1&t=1';
+
+	console.log(item);
+
+	// todo: add popup html things to do the frontendwork and actually call this page
+}
+
 chrome.runtime.onInstalled.addListener(function () {
 	chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
 		chrome.declarativeContent.onPageChanged.addRules([
@@ -25,7 +40,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
 		if (msg.text === 'trigger_reset') {
 			console.log('background received task to reset the following episodes');
-			console.log(msg.items);
+			resetEpisodes(msg.items);
 		}
 
 	});

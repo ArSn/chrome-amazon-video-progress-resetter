@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 console.log('start of parser');
 
@@ -15,7 +15,7 @@ function parseEpisodes() {
 	let items = [];
 	let progressNode, progress;
 
-	itemsNodes.forEach(function (element, index) {
+	itemsNodes.forEach(function (element) {
 
 		progress = 0;
 		progressNode = element.querySelector('span[aria-valuemax="100"]');
@@ -24,8 +24,9 @@ function parseEpisodes() {
 		}
 
 		items.push({
-            'index': index,
-            'title': element.querySelector('.js-episode-title-name span').innerHTML,
+            'id': element.querySelector('a[data-title-id]').getAttribute('data-title-id'),
+			'domain': window.top.location.host,
+			'title': element.querySelector('.js-episode-title-name span').innerHTML,
 			'progress': parseInt(progress),
         });
 	});
@@ -49,7 +50,9 @@ chrome.runtime.onMessage.addListener(function (msg) {
 			let confirmation = true; // just for debug
 			console.log('continue resetting? ', confirmation);
 
-			chrome.runtime.sendMessage({text: "trigger_reset", items: parseEpisodes()});
+			if (confirmation) {
+				chrome.runtime.sendMessage({text: "trigger_reset", items: parseEpisodes()});
+			}
 
 		} else {
 			alert('No seasons found on this page');
