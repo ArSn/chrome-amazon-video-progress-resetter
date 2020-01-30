@@ -30,7 +30,7 @@ function parseEpisodes() {
         });
 	});
 
-	console.log(items);
+	return items;
 }
 
 
@@ -38,16 +38,19 @@ chrome.runtime.onMessage.addListener(function (msg) {
 
 	console.log('message received');
 
-	if (msg.text === 'reset_progress') {
+	if (msg.text === 'get_reset_confirmation') {
 		console.log('parsing ...');
 
 		// parseEpisodes();
 		// return;
 
 		if (pageLooksLikeSeasonPage()) {
-			let confirmation = confirm('Are you sure you want to reset the progress?');
+			// let confirmation = confirm('Are you sure you want to reset the progress?');
+			let confirmation = true; // just for debug
 			console.log('continue resetting? ', confirmation);
-			// todo: implement actual resetting here
+
+			chrome.runtime.sendMessage({text: "trigger_reset", items: parseEpisodes()});
+
 		} else {
 			alert('No seasons found on this page');
 		}
