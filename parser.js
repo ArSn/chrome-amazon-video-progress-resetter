@@ -7,21 +7,30 @@ function pageLooksLikeSeasonPage() {
 }
 
 function parseEpisodes() {
-	let titles = document.querySelectorAll('.js-episode-title-name span');
-	if (!titles || !titles.length) {
+	let itemsNodes = document.querySelectorAll('.dv-episode-playback-title');
+	if (!itemsNodes || !itemsNodes.length) {
 		return false;
 	}
 
-	let names = [];
+	let items = [];
+	let progressNode, progress;
 
-	titles.forEach(function (element, index) {
-		names.push({
+	itemsNodes.forEach(function (element, index) {
+
+		progress = 0;
+		progressNode = element.querySelector('span[aria-valuemax="100"]');
+		if (progressNode) {
+			progress = progressNode.getAttribute('aria-valuenow');
+		}
+
+		items.push({
             'index': index,
-            'title': element.innerHTML,
+            'title': element.querySelector('.js-episode-title-name span').innerHTML,
+			'progress': parseInt(progress),
         });
 	});
 
-	console.log(names);
+	console.log(items);
 }
 
 
