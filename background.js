@@ -1,16 +1,24 @@
 'use strict';
 
-function resetEpisodes(items) {
-	items.forEach(function (element) {
-		resetSingleEpisode(element);
-	});
-}
+function resetEpisodes(episodeList) {
 
-function resetSingleEpisode(item) {
+	let item = episodeList[0];
+
 	let url;
 	url = 'https://' + item.domain + '/gp/video/detail/' + item.id + '/?autoplay=1&t=1';
 
 	console.log(item);
+
+	chrome.tabs.create({ url: url }, function (tab) {
+		console.log('Created the tab!');
+		console.log(tab);
+
+		setTimeout(function () {
+			chrome.tabs.remove(tab.id);
+		}, 5000);
+
+	});
+
 
 	// todo: add popup html things to do the frontendwork and actually call this page
 }
