@@ -32,6 +32,7 @@ function resetEpisodes(episodeList) {
 			if (episodeList.length > 0) {
 				resetEpisodes(episodeList);
 			}
+			// todo: https://www.w3schools.com/tags/av_event_play.asp --> wait 2 seconds or so after play start, not just 7 secs total
 		}, 7000);
 	});
 
