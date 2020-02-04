@@ -2,12 +2,23 @@
 
 function resetEpisodes(episodeList) {
 
-	let item = episodeList[0];
+	if (episodeList.length === 0) {
+		console.log('No episodes left to reset. Process finished.');
+		return;
+	}
+
+	let item = episodeList.shift();
+
+	console.log('Working on item with id: ' + item.id + ' ...');
+
+	if (item.progress <= 20) {
+		console.log('Progress (' + item.progress + ') is below threshold, skipping reset.');
+		resetEpisodes(episodeList);
+		return;
+	}
 
 	let url;
 	url = 'https://' + item.domain + '/gp/video/detail/' + item.id + '/?autoplay=1&t=1';
-
-	console.log(item);
 
 	chrome.tabs.create({ url: url }, function (tab) {
 		chrome.tabs.update(tab.id, {muted:true});
@@ -15,7 +26,12 @@ function resetEpisodes(episodeList) {
 		console.log(tab);
 
 		setTimeout(function () {
+			console.log('Closing tab again');
 			chrome.tabs.remove(tab.id);
+
+			if (episodeList.length > 0) {
+				resetEpisodes(episodeList);
+			}
 		}, 7000);
 	});
 
