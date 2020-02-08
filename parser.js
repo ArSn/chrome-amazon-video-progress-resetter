@@ -34,6 +34,29 @@ function parseEpisodes() {
 	return items;
 }
 
+function showOverlay()
+{
+
+	let overlay = document.createElement('div');
+	overlay.style.zIndex = 9999999;
+	overlay.style.position = 'fixed';
+	overlay.style.left = '50px';
+	overlay.style.top = '50px';
+	overlay.style.width = '300px';
+	overlay.style.height = '300px';
+	overlay.style.border = '1px solid black';
+	overlay.style.background = '#FFF';
+	overlay.style.padding = '10px';
+
+	overlay.innerHTML = 'This is where the dialog goes';
+
+	console.log(document.querySelector('body'));
+
+	document.querySelector('body').append(overlay);
+
+
+}
+
 
 chrome.runtime.onMessage.addListener(function (msg) {
 
@@ -50,8 +73,10 @@ chrome.runtime.onMessage.addListener(function (msg) {
 			let confirmation = true; // just for debug
 			console.log('continue resetting? ', confirmation);
 
+			showOverlay();
+
 			if (confirmation) {
-				chrome.runtime.sendMessage({text: "trigger_reset", items: parseEpisodes()});
+				// chrome.runtime.sendMessage({text: "trigger_reset", items: parseEpisodes()});
 			}
 
 		} else {
