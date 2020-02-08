@@ -38,23 +38,10 @@ function showOverlay()
 {
 
 	let overlay = document.createElement('div');
-	overlay.style.zIndex = 9999999;
-	overlay.style.position = 'fixed';
-	overlay.style.left = '50px';
-	overlay.style.top = '50px';
-	overlay.style.width = '300px';
-	overlay.style.height = '300px';
-	overlay.style.border = '1px solid black';
-	overlay.style.background = '#FFF';
-	overlay.style.padding = '10px';
-
+	overlay.id = 'kaz-av-dialog';
 	overlay.innerHTML = 'This is where the dialog goes';
 
-	console.log(document.querySelector('body'));
-
 	document.querySelector('body').append(overlay);
-
-
 }
 
 

@@ -1,0 +1,11 @@
+#kaz-av-dialog {
+    z-index: 9999999;
+    position: fixed;
+    left: 50px;
+    top: 50px;
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    background: #FFF;
+    padding: 10px;
+}
