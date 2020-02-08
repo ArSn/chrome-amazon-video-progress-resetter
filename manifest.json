@@ -11,9 +11,12 @@
   },
   "page_action": {
     "default_icon": {
-      "24": "images/rewind-24.png",
-      "32": "images/rewind-32.png",
-      "64": "images/rewind-64.png"
+      "20": "images/logo-20.png",
+      "40": "images/logo-40.png",
+      "60": "images/logo-60.png",
+      "80": "images/logo-80.png",
+      "200": "images/logo-200.png",
+      "668": "images/logo-668.png"
     },
     "default_title": "Rewind Videos"
   },
