@@ -42,7 +42,10 @@ function showOverlay()
 
 	let overlay = document.createElement('div');
 	overlay.id = 'kaz-av-dialog';
-	overlay.innerHTML = 'This is where the dialog goes';
+
+	let episodesCount = parseEpisodes().length;
+
+	overlay.innerHTML = 'I found a total of ' + episodesCount + ' episodes that I can reset for you. Do you want me to start with it?';
 
 	document.querySelector('body').append(backdrop, overlay);
 }
