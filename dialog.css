@@ -8,6 +8,16 @@
     height: 300px;
     margin-top: -150px;
     border: 1px solid black;
-    background: #FFF;
+    background-color: #FFF;
     padding: 10px;
+}
+
+#kaz-av-backdrop {
+    z-index: 9999998;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
 }

@@ -37,11 +37,14 @@ function parseEpisodes() {
 function showOverlay()
 {
 
+	let backdrop = document.createElement('div');
+	backdrop.id = 'kaz-av-backdrop';
+
 	let overlay = document.createElement('div');
 	overlay.id = 'kaz-av-dialog';
 	overlay.innerHTML = 'This is where the dialog goes';
 
-	document.querySelector('body').append(overlay);
+	document.querySelector('body').append(backdrop, overlay);
 }
 
 
