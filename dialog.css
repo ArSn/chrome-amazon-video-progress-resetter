@@ -9,7 +9,30 @@
     margin-top: -150px;
     border: 1px solid black;
     background-color: #FFF;
-    padding: 10px;
+    padding: 20px;
+}
+
+#kaz-av-dialog p {
+    font-size: 1.2em;
+}
+
+#kaz-av-dialog button {
+    font-weight: bold;
+    font-size: 1.4em;
+    padding: 20px;
+    text-align: center;
+    display: inline-block;
+    width: 40%;
+    margin: 5%;
+}
+
+#kaz-av-dialog .confirm {
+    background: #a7e9af;
+    /*background: #75b79e;*/
+}
+
+#kaz-av-dialog .cancel {
+    background: #f67280;
 }
 
 #kaz-av-backdrop {

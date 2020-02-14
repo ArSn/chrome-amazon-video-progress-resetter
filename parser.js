@@ -45,7 +45,25 @@ function showOverlay()
 
 	let episodesCount = parseEpisodes().length;
 
-	overlay.innerHTML = 'I found a total of ' + episodesCount + ' episodes that I can reset for you. Do you want me to start with it?';
+	overlay.innerHTML = '<p>I found a total of <strong>' + episodesCount + ' episodes</strong> that I can reset for you.<br><br>Do you want me to start with it?</p>';
+
+	let confirmButton = document.createElement('button');
+	confirmButton.innerText = 'Start!';
+	confirmButton.className = 'confirm';
+	confirmButton.addEventListener('click', function () {
+		console.log('I would do it now');
+	});
+
+	let cancelButton = document.createElement('button');
+	cancelButton.innerText = 'Cancel';
+	cancelButton.className = 'cancel';
+	cancelButton.addEventListener('click', function () {
+		console.log('Closing overlay!');
+		document.querySelector('body').removeChild(backdrop);
+		document.querySelector('body').removeChild(overlay);
+	});
+
+	overlay.append(confirmButton, cancelButton);
 
 	document.querySelector('body').append(backdrop, overlay);
 }
