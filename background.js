@@ -7,6 +7,9 @@ function resetEpisodes(episodeList) {
 
 	if (episodeList.length === 0) {
 		console.log('No episodes left to reset. Process finished.');
+		chrome.tabs.sendMessage(backgroundSenderTabId, {
+			text: 'report_reset_finished',
+		});
 		return;
 	}
 
@@ -40,7 +43,9 @@ function resetEpisodes(episodeList) {
 				});
 				resetEpisodes(episodeList);
 			} else {
-				// todo: send message that resetting is completed!
+				chrome.tabs.sendMessage(backgroundSenderTabId, {
+					text: 'report_reset_finished',
+				});
 			}
 			// todo: https://www.w3schools.com/tags/av_event_play.asp --> wait 2 seconds or so after play start, not just 7 secs total
 		}, 7000);

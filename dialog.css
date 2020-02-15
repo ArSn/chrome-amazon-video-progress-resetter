@@ -27,9 +27,13 @@
     margin: 5%;
 }
 
+#kaz-av-dialog button.success {
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+}
+
 #kaz-av-dialog .confirm {
     background: #a7e9af;
-    /*background: #75b79e;*/
 }
 
 #kaz-av-dialog .cancel {

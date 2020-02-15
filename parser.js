@@ -38,7 +38,6 @@ let progress;
 
 function showDialog()
 {
-
 	let backdrop = document.createElement('div');
 	backdrop.id = 'kaz-av-backdrop';
 
@@ -70,20 +69,32 @@ function showDialog()
 	let cancelButton = document.createElement('button');
 	cancelButton.innerText = 'Cancel';
 	cancelButton.className = 'cancel';
-	cancelButton.addEventListener('click', function () {
-		console.log('Closing overlay!');
-		document.querySelector('body').removeChild(backdrop);
-		document.querySelector('body').removeChild(dialog);
-	});
+	cancelButton.addEventListener('click', hideDialog);
 
 	progress.append(confirmationQuestion, confirmButton, cancelButton);
 
 	document.querySelector('body').append(backdrop, dialog);
 }
 
+function hideDialog()
+{
+	console.log('Closing dialog!');
+	document.getElementById('kaz-av-backdrop').remove();
+	document.getElementById('kaz-av-dialog').remove();
+}
+
 function updateProgress(totalCount, remainingCount)
 {
 	progress.innerHTML = '<p>There are ' + remainingCount + ' of ' + totalCount + ' episodes remaining to be reset.</p><p>Please wait ...</p>';
+}
+
+function reportResetFinished()
+{
+	progress.innerHTML = '<p>All episodes have been successfully reset.</p>' +
+		'<p>Please go to the next season page if you want to continue resetting.</p>' +
+		'<button id="kaz-av-close" class="confirm success">Close</button>';
+
+	document.getElementById('kaz-av-close').addEventListener('click', hideDialog);
 }
 
 chrome.runtime.onMessage.addListener(function (msg) {
@@ -108,6 +119,8 @@ chrome.runtime.onMessage.addListener(function (msg) {
 		}
 	} else if (msg.text === 'report_reset_status') {
 		updateProgress(msg.totalEpisodeCount, msg.remainingEpisodeCount);
+	} else if (msg.text === 'report_reset_finished') {
+		reportResetFinished();
 	}
 });
 
