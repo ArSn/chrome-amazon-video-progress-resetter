@@ -32,6 +32,10 @@ function resetEpisodes(episodeList) {
 		console.log(tab);
 
 		setTimeout(function () {
+			chrome.tabs.update(backgroundSenderTabId, { active: true });
+		}, 5000);
+
+		setTimeout(function () {
 			console.log('Closing tab again');
 			chrome.tabs.remove(tab.id);
 
@@ -48,7 +52,7 @@ function resetEpisodes(episodeList) {
 				});
 			}
 			// todo: https://www.w3schools.com/tags/av_event_play.asp --> wait 2 seconds or so after play start, not just 7 secs total
-		}, 7000);
+		}, 10000);
 	});
 
 
