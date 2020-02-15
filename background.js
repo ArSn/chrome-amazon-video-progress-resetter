@@ -1,5 +1,8 @@
 'use strict';
 
+let backgroundTotalEpisodeCount = 0;
+let backgroundSenderTabId = 0;
+
 function resetEpisodes(episodeList) {
 
 	if (episodeList.length === 0) {
@@ -30,7 +33,14 @@ function resetEpisodes(episodeList) {
 			chrome.tabs.remove(tab.id);
 
 			if (episodeList.length > 0) {
+				chrome.tabs.sendMessage(backgroundSenderTabId, {
+					text: 'report_reset_status',
+					totalEpisodeCount: backgroundTotalEpisodeCount,
+					remainingEpisodeCount: episodeList.length,
+				});
 				resetEpisodes(episodeList);
+			} else {
+				// todo: send message that resetting is completed!
 			}
 			// todo: https://www.w3schools.com/tags/av_event_play.asp --> wait 2 seconds or so after play start, not just 7 secs total
 		}, 7000);
@@ -61,10 +71,12 @@ chrome.runtime.onInstalled.addListener(function () {
 
 	});
 
-	chrome.runtime.onMessage.addListener(function (msg) {
+	chrome.runtime.onMessage.addListener(function (msg, sender) {
 
 		if (msg.text === 'trigger_reset') {
 			console.log('background received task to reset the following episodes');
+			backgroundSenderTabId = sender.tab.id;
+			backgroundTotalEpisodeCount = msg.items.length;
 			resetEpisodes(msg.items);
 		}
 

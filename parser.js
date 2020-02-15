@@ -34,21 +34,23 @@ function parseEpisodes() {
 	return items;
 }
 
-function showOverlay()
+let progress;
+
+function showDialog()
 {
 
 	let backdrop = document.createElement('div');
 	backdrop.id = 'kaz-av-backdrop';
 
-	let overlay = document.createElement('div');
-	overlay.id = 'kaz-av-dialog';
+	let dialog = document.createElement('div');
+	dialog.id = 'kaz-av-dialog';
 
 	let episodesCount = parseEpisodes().length;
 
-	overlay.innerHTML = '<p>I found a total of <strong>' + episodesCount + ' episodes</strong> that I can reset for you.</p>';
+	dialog.innerHTML = '<p>I found a total of <strong>' + episodesCount + ' episodes</strong> that I can reset for you.</p>';
 
-	let progress = document.createElement('div');
-	overlay.append(progress);
+	progress = document.createElement('div');
+	dialog.append(progress);
 
 	let confirmationQuestion = document.createElement('p');
 	confirmationQuestion.innerText = 'Do you want me to start with it?';
@@ -59,6 +61,10 @@ function showOverlay()
 	confirmButton.addEventListener('click', function () {
 		console.log('I would do it now');
 		progress.innerHTML = '<p>Starting ...</p>';
+		chrome.runtime.sendMessage({
+			text: "trigger_reset",
+			items: parseEpisodes(),
+		});
 	});
 
 	let cancelButton = document.createElement('button');
@@ -67,14 +73,18 @@ function showOverlay()
 	cancelButton.addEventListener('click', function () {
 		console.log('Closing overlay!');
 		document.querySelector('body').removeChild(backdrop);
-		document.querySelector('body').removeChild(overlay);
+		document.querySelector('body').removeChild(dialog);
 	});
 
 	progress.append(confirmationQuestion, confirmButton, cancelButton);
 
-	document.querySelector('body').append(backdrop, overlay);
+	document.querySelector('body').append(backdrop, dialog);
 }
 
+function updateProgress(totalCount, remainingCount)
+{
+	progress.innerHTML = '<p>There are ' + remainingCount + ' of ' + totalCount + ' episodes remaining to be reset.</p><p>Please wait ...</p>';
+}
 
 chrome.runtime.onMessage.addListener(function (msg) {
 
@@ -91,15 +101,13 @@ chrome.runtime.onMessage.addListener(function (msg) {
 			let confirmation = true; // just for debug
 			console.log('continue resetting? ', confirmation);
 
-			showOverlay();
-
-			if (confirmation) {
-				// chrome.runtime.sendMessage({text: "trigger_reset", items: parseEpisodes()});
-			}
+			showDialog();
 
 		} else {
 			alert('No seasons found on this page');
 		}
+	} else if (msg.text === 'report_reset_status') {
+		updateProgress(msg.totalEpisodeCount, msg.remainingEpisodeCount);
 	}
 });
 
