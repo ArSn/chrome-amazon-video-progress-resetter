@@ -1,5 +1,6 @@
 {
   "name": "Amazon Video Progress Resetter",
+  "author": "Kolja 'ArSn' Zuelsdorf <koljaz@web.de>",
   "version": "0.1",
   "description": "Reset the Amazon Video progress of whole seasons with a single click. Perfect for re-watching tv shows.",
   "manifest_version": 2,
