@@ -66,9 +66,16 @@ chrome.runtime.onInstalled.addListener(function () {
 				conditions: [
 					new chrome.declarativeContent.PageStateMatcher({
 						pageUrl: {hostContains: '.amazon.'},
+						css: ['.dv-episode-playback-title'],
 					})
 				],
-				actions: [new chrome.declarativeContent.ShowPageAction()]
+				actions: [
+					new chrome.declarativeContent.ShowPageAction(),
+					new chrome.declarativeContent.RequestContentScript({
+						js: ['parser.js'],
+						css: ['dialog.css'],
+					}),
+				]
 			}
 		]);
 	});
@@ -87,6 +94,9 @@ chrome.runtime.onInstalled.addListener(function () {
 			backgroundSenderTabId = sender.tab.id;
 			backgroundTotalEpisodeCount = msg.items.length;
 			resetEpisodes(msg.items);
+		} else if (msg.text === 'hide_page_action') {
+			console.log('hiding tab with id ' + sender.tab.id);
+			chrome.pageAction.hide(sender.tab.id);
 		}
 
 	});

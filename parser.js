@@ -3,14 +3,19 @@
 console.log('start of parser');
 
 function pageLooksLikeSeasonPage() {
-	return parseEpisodes() !== false;
-}
-
-function parseEpisodes() {
 	let itemsNodes = document.querySelectorAll('.dv-episode-playback-title');
 	if (!itemsNodes || !itemsNodes.length) {
 		return false;
 	}
+	return true;
+}
+
+function parseEpisodes() {
+	if (!pageLooksLikeSeasonPage()) {
+		return [];
+	}
+
+	let itemsNodes = document.querySelectorAll('.dv-episode-playback-title');
 
 	let items = [];
 	let progressNode, progress;
@@ -111,6 +116,18 @@ function reportResetFinished()
 	document.getElementById('kaz-av-close').addEventListener('click', hideDialog);
 }
 
+function verifyValidPage()
+{
+	if (!pageLooksLikeSeasonPage()) {
+		console.log('does not look like season page');
+		// chrome.runtime.sendMessage({
+		// 	text: "hide_page_action",
+		// });
+	} else {
+		console.log('looks like season page');
+	}
+}
+
 chrome.runtime.onMessage.addListener(function (msg) {
 
 	console.log('message received');
@@ -135,6 +152,8 @@ chrome.runtime.onMessage.addListener(function (msg) {
 		updateProgress(msg.totalEpisodeCount, msg.remainingEpisodeCount);
 	} else if (msg.text === 'report_reset_finished') {
 		reportResetFinished();
+	} else if (msg.text === 'verify_valid_page') {
+		// verifyValidPage();
 	}
 });
 

@@ -21,33 +21,34 @@
     },
     "default_title": "Rewind Videos"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.amazon.com.au/*",
-        "*://*.amazon.com.br/*",
-        "*://*.amazon.ca/*",
-        "*://*.amazon.cn/*",
-        "*://*.amazon.fr/*",
-        "*://*.amazon.de/*",
-        "*://*.amazon.in/*",
-        "*://*.amazon.it/*",
-        "*://*.amazon.co.jp/*",
-        "*://*.amazon.com.mx/*",
-        "*://*.amazon.es/*",
-        "*://*.amazon.co.uk/*",
-        "*://*.amazon.com/*"
-      ],
-      "js": [
-        "parser.js"
-      ],
-      "css": [
-        "dialog.css"
-      ]
-    }
-  ],
+//  "content_scripts": [
+//    {
+//      "matches": [
+//        "*://*.amazon.com.au/*",
+//        "*://*.amazon.com.br/*",
+//        "*://*.amazon.ca/*",
+//        "*://*.amazon.cn/*",
+//        "*://*.amazon.fr/*",
+//        "*://*.amazon.de/*",
+//        "*://*.amazon.in/*",
+//        "*://*.amazon.it/*",
+//        "*://*.amazon.co.jp/*",
+//        "*://*.amazon.com.mx/*",
+//        "*://*.amazon.es/*",
+//        "*://*.amazon.co.uk/*",
+//        "*://*.amazon.com/*"
+//      ],
+//      "js": [
+//        "parser.js"
+//      ],
+//      "css": [
+//        "dialog.css"
+//      ]
+//    }
+//  ],
   "permissions": [
     "declarativeContent",
+//    "https://www.amazon.de/",
     "tabs",
     "activeTab"
   ]
