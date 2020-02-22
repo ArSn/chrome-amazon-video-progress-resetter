@@ -34,10 +34,25 @@ function parseEpisodes() {
 	return items;
 }
 
+function getResettableEpisodeCount()
+{
+	let counter = 0;
+	parseEpisodes().forEach((item) => {
+		counter += item.progress > 20 ? 1 : 0;
+	});
+	return counter;
+}
+
 let progress;
 
 function showDialog()
 {
+	let resettableEpisodesCount = getResettableEpisodeCount();
+	if (resettableEpisodesCount === 0) {
+		alert('No episodes on this page seem to have any progress. Nothing to reset. Please open a season page that does have episodes where the progress can be reset.');
+		return;
+	}
+
 	let backdrop = document.createElement('div');
 	backdrop.id = 'kaz-av-backdrop';
 
@@ -45,8 +60,7 @@ function showDialog()
 	dialog.id = 'kaz-av-dialog';
 
 	let episodesCount = parseEpisodes().length;
-
-	dialog.innerHTML = '<p>I found a total of <strong>' + episodesCount + ' episodes</strong> that I can reset for you.</p>';
+	dialog.innerHTML = '<p>I found <strong>' + resettableEpisodesCount +  ' episodes</strong> of a total ' + episodesCount + ' episodes that I can reset for you.</p>';
 
 	progress = document.createElement('div');
 	dialog.append(progress);
