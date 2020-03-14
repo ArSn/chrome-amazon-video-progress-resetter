@@ -111,9 +111,14 @@ function reportResetFinished()
 {
 	progress.innerHTML = '<p>All episodes have been successfully reset.</p>' +
 		'<p>Please go to the next season page if you want to continue resetting.</p>' +
-		'<button id="kaz-av-close" class="confirm success">Close</button>';
+		'<p><strong>Note:</strong> Closing this dialog will refresh the page.</p>' +
+		'<button id="kaz-av-close" class="confirm success">Close and refresh</button>';
 
-	document.getElementById('kaz-av-close').addEventListener('click', hideDialog);
+	let button = document.getElementById('kaz-av-close');
+	button.addEventListener('click', function () {
+		button.innerText = 'Closing ...';
+		window.location.reload();
+	});
 }
 
 function verifyValidPage()
