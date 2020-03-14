@@ -130,16 +130,18 @@ chrome.runtime.onInstalled.addListener(function () {
 		} else if (msg.text === 'show_page_action') {
 			console.log('showing tab with id ' + sender.tab.id);
 			chrome.pageAction.show(sender.tab.id);
-			chrome.pageAction.setIcon({
-				tabId: sender.tab.id,
-				path: {
-					20: 'images/logo-20.png',
-					40: 'images/logo-40.png',
-					60: 'images/logo-60.png',
-					80: 'images/logo-80.png',
-					200: 'images/logo-200.png',
-					668: 'images/logo-668.png',
-				},
+			chrome.tabs.executeScript(sender.tab.id, {file: 'parser.js'}, function() {
+				chrome.pageAction.setIcon({
+					tabId: sender.tab.id,
+					path: {
+						20: 'images/logo-20.png',
+						40: 'images/logo-40.png',
+						60: 'images/logo-60.png',
+						80: 'images/logo-80.png',
+						200: 'images/logo-200.png',
+						668: 'images/logo-668.png',
+					},
+				});
 			});
 		}
 
