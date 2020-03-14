@@ -22,3 +22,22 @@ function verifyValidPage()
 }
 
 verifyValidPage();
+
+Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
+	get: function(){
+		return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
+	}
+});
+
+function isVideoPlaying() {
+	let videos = document.querySelectorAll('video');
+	if (!videos || !videos.length) {
+		return false;
+	}
+	return videos[0].playing;
+}
+
+window.setInterval(function () {
+	console.log('playing?', isVideoPlaying());
+}, 1000)
+
