@@ -60,7 +60,14 @@ function resetEpisodes(episodeList) {
 }
 
 chrome.runtime.onInstalled.addListener(function () {
+
+	// for debug
+	// chrome.declarativeContent.onPageChanged.getRules(undefined, function(rule) {
+	// 	console.log('single rule', rule);
+	// });
+
 	chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
+		console.log('adding rules!');
 		chrome.declarativeContent.onPageChanged.addRules([
 			{
 				conditions: [

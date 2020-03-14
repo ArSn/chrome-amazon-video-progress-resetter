@@ -21,34 +21,21 @@
     },
     "default_title": "Rewind Videos"
   },
-//  "content_scripts": [
-//    {
-//      "matches": [
-//        "*://*.amazon.com.au/*",
-//        "*://*.amazon.com.br/*",
-//        "*://*.amazon.ca/*",
-//        "*://*.amazon.cn/*",
-//        "*://*.amazon.fr/*",
-//        "*://*.amazon.de/*",
-//        "*://*.amazon.in/*",
-//        "*://*.amazon.it/*",
-//        "*://*.amazon.co.jp/*",
-//        "*://*.amazon.com.mx/*",
-//        "*://*.amazon.es/*",
-//        "*://*.amazon.co.uk/*",
-//        "*://*.amazon.com/*"
-//      ],
-//      "js": [
-//        "parser.js"
-//      ],
-//      "css": [
-//        "dialog.css"
-//      ]
-//    }
-//  ],
   "permissions": [
     "declarativeContent",
-//    "https://www.amazon.de/",
+    "https://www.amazon.com.au/",
+    "https://www.amazon.com.br/",
+    "https://www.amazon.ca/",
+    "https://www.amazon.cn/",
+    "https://www.amazon.fr/",
+    "https://www.amazon.de/",
+    "https://www.amazon.in/",
+    "https://www.amazon.it/",
+    "https://www.amazon.co.jp/",
+    "https://www.amazon.com.mx/",
+    "https://www.amazon.es/",
+    "https://www.amazon.co.uk/",
+    "https://www.amazon.com/",
     "tabs",
     "activeTab"
   ]
