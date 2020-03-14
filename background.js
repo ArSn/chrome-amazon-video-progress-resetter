@@ -66,26 +66,38 @@ chrome.runtime.onInstalled.addListener(function () {
 	// 	console.log('single rule', rule);
 	// });
 
-	chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-		console.log('adding rules!');
-		chrome.declarativeContent.onPageChanged.addRules([
-			{
-				conditions: [
-					new chrome.declarativeContent.PageStateMatcher({
-						pageUrl: {hostContains: '.amazon.'},
-						css: ['.dv-episode-playback-title'],
-					})
-				],
-				actions: [
-					new chrome.declarativeContent.ShowPageAction(),
-					new chrome.declarativeContent.RequestContentScript({
-						js: ['parser.js'],
-						css: ['dialog.css'],
-					}),
-				]
-			}
-		]);
-	});
+	// chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
+	// 	console.log('adding rules!');
+	// 	chrome.declarativeContent.onPageChanged.addRules([
+	// 		{
+	// 			conditions: [
+	// 				new chrome.declarativeContent.PageStateMatcher({
+	// 					pageUrl: {hostContains: '.amazon.'},
+	// 					css: ['.dv-episode-playback-title'],
+	// 				})
+	// 			],
+	// 			actions: [
+	// 				// new chrome.declarativeContent.ShowPageAction(),
+	// 				new chrome.declarativeContent.RequestContentScript({
+	// 					js: ['parser.js'],
+	// 					css: ['dialog.css'],
+	// 				}),
+	// 			]
+	// 		},
+	// 		{
+	// 			conditions: [
+	// 				new chrome.declarativeContent.PageStateMatcher({
+	// 					pageUrl: {hostContains: '.amazon.'},
+	// 				})
+	// 			],
+	// 			actions: [
+	// 				new chrome.declarativeContent.RequestContentScript({
+	// 					js: ['page-action-handler.js'],
+	// 				}),
+	// 			]
+	// 		}
+	// 	]);
+	// });
 
 	chrome.pageAction.onClicked.addListener(function (tab) {
 
@@ -104,6 +116,31 @@ chrome.runtime.onInstalled.addListener(function () {
 		} else if (msg.text === 'hide_page_action') {
 			console.log('hiding tab with id ' + sender.tab.id);
 			chrome.pageAction.hide(sender.tab.id);
+			chrome.pageAction.setIcon({
+				tabId: sender.tab.id,
+				path: {
+					20: 'images/logo-20-gray.png',
+					40: 'images/logo-40-gray.png',
+					60: 'images/logo-60-gray.png',
+					80: 'images/logo-80-gray.png',
+					200: 'images/logo-200-gray.png',
+					668: 'images/logo-668-gray.png',
+				},
+			});
+		} else if (msg.text === 'show_page_action') {
+			console.log('showing tab with id ' + sender.tab.id);
+			chrome.pageAction.show(sender.tab.id);
+			chrome.pageAction.setIcon({
+				tabId: sender.tab.id,
+				path: {
+					20: 'images/logo-20.png',
+					40: 'images/logo-40.png',
+					60: 'images/logo-60.png',
+					80: 'images/logo-80.png',
+					200: 'images/logo-200.png',
+					668: 'images/logo-668.png',
+				},
+			});
 		}
 
 	});

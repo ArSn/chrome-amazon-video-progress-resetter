@@ -120,9 +120,9 @@ function verifyValidPage()
 {
 	if (!pageLooksLikeSeasonPage()) {
 		console.log('does not look like season page');
-		// chrome.runtime.sendMessage({
-		// 	text: "hide_page_action",
-		// });
+		chrome.runtime.sendMessage({
+			text: "hide_page_action",
+		});
 	} else {
 		console.log('looks like season page');
 	}
