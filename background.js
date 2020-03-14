@@ -61,44 +61,6 @@ function resetEpisodes(episodeList) {
 
 chrome.runtime.onInstalled.addListener(function () {
 
-	// for debug
-	// chrome.declarativeContent.onPageChanged.getRules(undefined, function(rule) {
-	// 	console.log('single rule', rule);
-	// });
-
-	// chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-	// 	console.log('adding rules!');
-	// 	chrome.declarativeContent.onPageChanged.addRules([
-	// 		{
-	// 			conditions: [
-	// 				new chrome.declarativeContent.PageStateMatcher({
-	// 					pageUrl: {hostContains: '.amazon.'},
-	// 					css: ['.dv-episode-playback-title'],
-	// 				})
-	// 			],
-	// 			actions: [
-	// 				// new chrome.declarativeContent.ShowPageAction(),
-	// 				new chrome.declarativeContent.RequestContentScript({
-	// 					js: ['parser.js'],
-	// 					css: ['dialog.css'],
-	// 				}),
-	// 			]
-	// 		},
-	// 		{
-	// 			conditions: [
-	// 				new chrome.declarativeContent.PageStateMatcher({
-	// 					pageUrl: {hostContains: '.amazon.'},
-	// 				})
-	// 			],
-	// 			actions: [
-	// 				new chrome.declarativeContent.RequestContentScript({
-	// 					js: ['page-action-handler.js'],
-	// 				}),
-	// 			]
-	// 		}
-	// 	]);
-	// });
-
 	chrome.pageAction.onClicked.addListener(function (tab) {
 
 		console.log('clicked...');
