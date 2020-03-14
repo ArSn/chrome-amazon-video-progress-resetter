@@ -2,8 +2,9 @@
 
 let backgroundTotalEpisodeCount = 0;
 let backgroundSenderTabId = 0;
+let episodeList = [];
 
-function resetEpisodes(episodeList) {
+function resetEpisodes() {
 
 	if (episodeList.length === 0) {
 		console.log('No episodes left to reset. Process finished.');
@@ -19,7 +20,7 @@ function resetEpisodes(episodeList) {
 
 	if (item.progress <= 20) {
 		console.log('Progress (' + item.progress + ') is below threshold, skipping reset.');
-		resetEpisodes(episodeList);
+		resetEpisodes();
 		return;
 	}
 
@@ -31,30 +32,8 @@ function resetEpisodes(episodeList) {
 		console.log('Created the tab!');
 		console.log(tab);
 
-		setTimeout(function () {
-			chrome.tabs.update(backgroundSenderTabId, { active: true });
-		}, 5000);
-
-		setTimeout(function () {
-			console.log('Closing tab again');
-			chrome.tabs.remove(tab.id);
-
-			if (episodeList.length > 0) {
-				chrome.tabs.sendMessage(backgroundSenderTabId, {
-					text: 'report_reset_status',
-					totalEpisodeCount: backgroundTotalEpisodeCount,
-					remainingEpisodeCount: episodeList.length,
-				});
-				resetEpisodes(episodeList);
-			} else {
-				chrome.tabs.sendMessage(backgroundSenderTabId, {
-					text: 'report_reset_finished',
-				});
-			}
-			// todo: https://www.w3schools.com/tags/av_event_play.asp --> wait 2 seconds or so after play start, not just 7 secs total
-		}, 10000);
+		chrome.tabs.executeScript(tab.id, {file: 'video-progress-sniffer.js'});
 	});
-
 
 	// todo: add popup html things to do the frontendwork and actually call this page
 }
@@ -74,7 +53,8 @@ chrome.runtime.onInstalled.addListener(function () {
 			console.log('background received task to reset the following episodes');
 			backgroundSenderTabId = sender.tab.id;
 			backgroundTotalEpisodeCount = msg.items.length;
-			resetEpisodes(msg.items);
+			episodeList = msg.items;
+			resetEpisodes();
 		} else if (msg.text === 'hide_page_action') {
 			console.log('hiding tab with id ' + sender.tab.id);
 			chrome.pageAction.hide(sender.tab.id);
@@ -107,6 +87,24 @@ chrome.runtime.onInstalled.addListener(function () {
 					});
 				});
 			});
+		} else if (msg.text === 'unfocus_video_tab') {
+			chrome.tabs.update(backgroundSenderTabId, { active: true });
+		} else if (msg.text === 'close_video_tab') {
+			console.log('Closing tab again');
+			chrome.tabs.remove(sender.tab.id);
+
+			if (episodeList.length > 0) {
+				chrome.tabs.sendMessage(backgroundSenderTabId, {
+					text: 'report_reset_status',
+					totalEpisodeCount: backgroundTotalEpisodeCount,
+					remainingEpisodeCount: episodeList.length,
+				});
+				resetEpisodes();
+			} else {
+				chrome.tabs.sendMessage(backgroundSenderTabId, {
+					text: 'report_reset_finished',
+				});
+			}
 		}
 
 	});
