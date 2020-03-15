@@ -1,6 +1,6 @@
 'use strict';
 
-let shouldDebug = true;
+let shouldDebug = false;
 function kazDebug(...args) {
 	if (shouldDebug) {
 		console.log(...args);
