@@ -104,7 +104,13 @@ function hideDialog()
 
 function updateProgress(totalCount, remainingCount)
 {
-	progress.innerHTML = '<p>There are ' + remainingCount + ' of ' + totalCount + ' episodes remaining to be reset.</p><p>Please wait ...</p>';
+	let currentEpisode = (totalCount - remainingCount);
+	let percentage = Math.round((currentEpisode / totalCount) * 100);
+	progress.innerHTML = '<p>Working on resetting episode ' + currentEpisode + ' of a total of ' + totalCount + ' episodes.</p>' +
+		'<p>Please wait ...</p>' +
+		'<div class="progress-bar">' +
+		'	<div class="progress" style="width:' + percentage + '%">' + percentage +  '%</div>' +
+		'</div>';
 }
 
 function reportResetFinished()

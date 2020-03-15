@@ -23,11 +23,11 @@ let intervalId = window.setInterval(function () {
 		chrome.runtime.sendMessage({
 			text: "unfocus_video_tab",
 		});
-	}, 1000);
+	}, 500);
 	window.setTimeout(function () {
 		chrome.runtime.sendMessage({
 			text: "close_video_tab",
 		});
-	}, 3000);
+	}, 4000);
 }, 1000);
 

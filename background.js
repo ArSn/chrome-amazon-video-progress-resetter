@@ -20,7 +20,10 @@ function resetEpisodes() {
 
 	if (item.progress <= 20) {
 		console.log('Progress (' + item.progress + ') is below threshold, skipping reset.');
-		resetEpisodes();
+		reportResetStatus();
+		setTimeout(function () {
+			resetEpisodes();
+		}, 1000);
 		return;
 	}
 
@@ -36,6 +39,15 @@ function resetEpisodes() {
 	});
 
 	// todo: add popup html things to do the frontendwork and actually call this page
+}
+
+function reportResetStatus()
+{
+	chrome.tabs.sendMessage(backgroundSenderTabId, {
+		text: 'report_reset_status',
+		totalEpisodeCount: backgroundTotalEpisodeCount,
+		remainingEpisodeCount: episodeList.length,
+	});
 }
 
 chrome.runtime.onInstalled.addListener(function () {
@@ -94,12 +106,10 @@ chrome.runtime.onInstalled.addListener(function () {
 			chrome.tabs.remove(sender.tab.id);
 
 			if (episodeList.length > 0) {
-				chrome.tabs.sendMessage(backgroundSenderTabId, {
-					text: 'report_reset_status',
-					totalEpisodeCount: backgroundTotalEpisodeCount,
-					remainingEpisodeCount: episodeList.length,
-				});
-				resetEpisodes();
+				reportResetStatus();
+				setTimeout(function () {
+					resetEpisodes();
+				}, 1000);
 			} else {
 				chrome.tabs.sendMessage(backgroundSenderTabId, {
 					text: 'report_reset_finished',
