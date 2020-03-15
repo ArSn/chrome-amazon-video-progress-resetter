@@ -109,7 +109,7 @@ function updateProgress(totalCount, remainingCount)
 	currentEpisode++;
 	currentEpisode = Math.min(totalCount, currentEpisode);
 	progress.innerHTML = '<p>Working on resetting episode ' + currentEpisode + ' of a total of ' + totalCount + ' episodes.</p>' +
-		'<p>Please wait ...</p>' +
+		'<p>Please wait <span class="spinner"></span></p>' +
 		'<div class="progress-bar">' +
 		'	<div class="progress" style="width:' + percentage + '%">' + percentage +  '%</div>' +
 		'</div>';

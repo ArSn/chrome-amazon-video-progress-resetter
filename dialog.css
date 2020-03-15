@@ -40,6 +40,21 @@
     background: #f67280;
 }
 
+#kaz-av-dialog .spinner {
+    display: inline-block;
+    border: 3px solid grey;
+    border-radius: 50%;
+    border-top: 3px solid #a7e9af;
+    width: 1em;
+    height: 1em;
+    animation: kaz-av-spin 1s linear infinite;
+}
+
+@keyframes kaz-av-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 #kaz-av-dialog .progress-bar {
     margin-top: 0.5em;
     height: 2.4em;
