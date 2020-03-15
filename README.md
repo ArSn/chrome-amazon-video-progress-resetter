@@ -27,3 +27,17 @@ of the code without adding any benefit for the user:
 - do not add debug function to each file individually (how to make something global?)
 - use ES6 class sugar
 - add tests and CI and stuff
+
+## Usage manual
+
+Once you have installed the extension you will notice the extension icon almost always
+being grayed out like this:
+
+![Grayed out icon](/images/logo-40-gray.png?raw=true)
+
+only when you open a season page (meaning an overview page that shows the episodes of a
+season on Amazon video) in your browser, the icon will become green:
+
+![Enabled icon](/images/logo-40-gray.png?raw=true)
+
+When on a season page, click the extension icon and a dialog will appear.
