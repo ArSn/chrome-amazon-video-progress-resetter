@@ -1,3 +1,6 @@
+// 'use strict';
+// todo: for some reason this file does not work in strict mode (yet) - figure out why and resolve this
+
 Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
 	get: function(){
 		return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
@@ -14,10 +17,10 @@ function isVideoPlaying() {
 
 let intervalId = window.setInterval(function () {
 	if (!isVideoPlaying()) {
-		console.log('video not playing yet, waiting');
+		kazDebug('video not playing yet, waiting');
 		return;
 	}
-	console.log('video playing yet, initiating closing');
+	kazDebug('video playing yet, initiating closing');
 	window.clearInterval(intervalId);
 	window.setTimeout(function () {
 		chrome.runtime.sendMessage({

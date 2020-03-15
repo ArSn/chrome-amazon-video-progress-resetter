@@ -1,5 +1,12 @@
 'use strict';
 
+let shouldDebug = true;
+function kazDebug(...args) {
+	if (shouldDebug) {
+		console.log(...args);
+	}
+}
+
 let backgroundTotalEpisodeCount = 0;
 let backgroundSenderTabId = 0;
 let episodeList = [];
@@ -7,7 +14,7 @@ let episodeList = [];
 function resetEpisodes() {
 
 	if (episodeList.length === 0) {
-		console.log('No episodes left to reset. Process finished.');
+		kazDebug('No episodes left to reset. Process finished.');
 		chrome.tabs.sendMessage(backgroundSenderTabId, {
 			text: 'report_reset_finished',
 		});
@@ -16,10 +23,10 @@ function resetEpisodes() {
 
 	let item = episodeList.shift();
 
-	console.log('Working on item with id: ' + item.id + ' ...');
+	kazDebug('Working on item with id: ' + item.id + ' ...');
 
 	if (item.progress <= 20) {
-		console.log('Progress (' + item.progress + ') is below threshold, skipping reset.');
+		kazDebug('Progress (' + item.progress + ') is below threshold, skipping reset.');
 		reportResetStatus();
 		setTimeout(function () {
 			resetEpisodes();
@@ -32,8 +39,8 @@ function resetEpisodes() {
 
 	chrome.tabs.create({ url: url }, function (tab) {
 		chrome.tabs.update(tab.id, {muted:true});
-		console.log('Created the tab!');
-		console.log(tab);
+		kazDebug('Created the tab!');
+		kazDebug(tab);
 
 		chrome.tabs.executeScript(tab.id, {file: 'video-progress-sniffer.js'});
 	});
@@ -54,7 +61,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
 	chrome.pageAction.onClicked.addListener(function (tab) {
 
-		console.log('clicked...');
+		kazDebug('clicked...');
 		chrome.tabs.sendMessage(tab.id, {text: 'get_reset_confirmation'});
 
 	});
@@ -62,14 +69,14 @@ chrome.runtime.onInstalled.addListener(function () {
 	chrome.runtime.onMessage.addListener(function (msg, sender) {
 
 		if (msg.text === 'trigger_reset') {
-			console.log('background received task to reset the following episodes');
+			kazDebug('background received task to reset the following episodes');
 			backgroundSenderTabId = sender.tab.id;
 			backgroundTotalEpisodeCount = msg.items.length;
 			episodeList = msg.items;
 			reportResetStatus();
 			resetEpisodes();
 		} else if (msg.text === 'hide_page_action') {
-			console.log('hiding tab with id ' + sender.tab.id);
+			kazDebug('hiding tab with id ' + sender.tab.id);
 			chrome.pageAction.hide(sender.tab.id);
 			chrome.pageAction.setIcon({
 				tabId: sender.tab.id,
@@ -83,7 +90,7 @@ chrome.runtime.onInstalled.addListener(function () {
 				},
 			});
 		} else if (msg.text === 'show_page_action') {
-			console.log('showing tab with id ' + sender.tab.id);
+			kazDebug('showing tab with id ' + sender.tab.id);
 			chrome.pageAction.show(sender.tab.id);
 			chrome.tabs.executeScript(sender.tab.id, {file: 'parser.js'}, function() {
 				chrome.tabs.insertCSS(sender.tab.id, {file: 'dialog.css'}, function () {
@@ -103,7 +110,7 @@ chrome.runtime.onInstalled.addListener(function () {
 		} else if (msg.text === 'unfocus_video_tab') {
 			chrome.tabs.update(backgroundSenderTabId, { active: true });
 		} else if (msg.text === 'close_video_tab') {
-			console.log('Closing tab again');
+			kazDebug('Closing tab again');
 			chrome.tabs.remove(sender.tab.id);
 
 			if (episodeList.length > 0) {
@@ -122,4 +129,4 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 
-console.log('background registered');
+kazDebug('background registered');

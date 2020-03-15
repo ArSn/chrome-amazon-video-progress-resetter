@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('start of parser');
+kazDebug('start of parser');
 
 function pageLooksLikeSeasonPage() {
 	let itemsNodes = document.querySelectorAll('.dv-episode-playback-title');
@@ -77,7 +77,7 @@ function showDialog()
 	confirmButton.innerText = 'Start!';
 	confirmButton.className = 'confirm';
 	confirmButton.addEventListener('click', function () {
-		console.log('I would do it now');
+		kazDebug('I would do it now');
 		progress.innerHTML = '<p>Starting ...</p>';
 		chrome.runtime.sendMessage({
 			text: "trigger_reset",
@@ -97,7 +97,7 @@ function showDialog()
 
 function hideDialog()
 {
-	console.log('Closing dialog!');
+	kazDebug('Closing dialog!');
 	document.getElementById('kaz-av-backdrop').remove();
 	document.getElementById('kaz-av-dialog').remove();
 }
@@ -132,21 +132,21 @@ function reportResetFinished()
 function verifyValidPage()
 {
 	if (!pageLooksLikeSeasonPage()) {
-		console.log('does not look like season page');
+		kazDebug('does not look like season page');
 		chrome.runtime.sendMessage({
 			text: "hide_page_action",
 		});
 	} else {
-		console.log('looks like season page');
+		kazDebug('looks like season page');
 	}
 }
 
 chrome.runtime.onMessage.addListener(function (msg) {
 
-	console.log('message received');
+	kazDebug('message received');
 
 	if (msg.text === 'get_reset_confirmation') {
-		console.log('parsing ...');
+		kazDebug('parsing ...');
 
 		// parseEpisodes();
 		// return;
@@ -154,7 +154,7 @@ chrome.runtime.onMessage.addListener(function (msg) {
 		if (pageLooksLikeSeasonPage()) {
 			// let confirmation = confirm('Are you sure you want to reset the progress?');
 			let confirmation = true; // just for debug
-			console.log('continue resetting? ', confirmation);
+			kazDebug('continue resetting? ', confirmation);
 
 			showDialog();
 
@@ -170,4 +170,4 @@ chrome.runtime.onMessage.addListener(function (msg) {
 	}
 });
 
-console.log('parser registered');
+kazDebug('parser registered');
