@@ -12,7 +12,13 @@ function isVideoPlaying() {
 	if (!videos || !videos.length) {
 		return false;
 	}
-	return videos[0].playing;
+	let playing = false;
+	videos.forEach(function (video) {
+		if (video.playing) {
+			playing = true;
+		}
+	});
+	return playing;
 }
 
 let intervalId = window.setInterval(function () {
