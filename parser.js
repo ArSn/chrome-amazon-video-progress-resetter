@@ -106,6 +106,8 @@ function updateProgress(totalCount, remainingCount)
 {
 	let currentEpisode = (totalCount - remainingCount);
 	let percentage = Math.round((currentEpisode / totalCount) * 100);
+	currentEpisode++;
+	currentEpisode = Math.min(totalCount, currentEpisode);
 	progress.innerHTML = '<p>Working on resetting episode ' + currentEpisode + ' of a total of ' + totalCount + ' episodes.</p>' +
 		'<p>Please wait ...</p>' +
 		'<div class="progress-bar">' +

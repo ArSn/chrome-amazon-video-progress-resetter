@@ -66,6 +66,7 @@ chrome.runtime.onInstalled.addListener(function () {
 			backgroundSenderTabId = sender.tab.id;
 			backgroundTotalEpisodeCount = msg.items.length;
 			episodeList = msg.items;
+			reportResetStatus();
 			resetEpisodes();
 		} else if (msg.text === 'hide_page_action') {
 			console.log('hiding tab with id ' + sender.tab.id);

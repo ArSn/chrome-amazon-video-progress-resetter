@@ -41,17 +41,20 @@
 }
 
 #kaz-av-dialog .progress-bar {
-    height: 24px;
-    border: 1px solid grey;
+    margin-top: 0.5em;
+    height: 2.4em;
+    border: 2px solid grey;
     padding: 0;
 }
 
 #kaz-av-dialog .progress {
     height: 100%;
     background-color: #a7e9af;
-    color: #FFF;
     margin: 0;
-    padding: 5px;
+    padding: 0.2em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 #kaz-av-backdrop {
