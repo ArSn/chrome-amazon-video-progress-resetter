@@ -38,6 +38,6 @@ being grayed out like this:
 only when you open a season page (meaning an overview page that shows the episodes of a
 season on Amazon video) in your browser, the icon will become green:
 
-![Enabled icon](/images/logo-40-gray.png?raw=true)
+![Enabled icon](/images/logo-40.png?raw=true)
 
 When on a season page, click the extension icon and a dialog will appear.
