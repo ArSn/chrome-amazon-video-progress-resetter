@@ -4,6 +4,7 @@
 - add advanced feature to reset all seasons of the series, not just the current page
 
 ## technical improvements
+- localization for all amazon sites, possibly automatically recognizing locale based on site
 - do not add debug function to each file individually
 - use ES6 class sugar
 - add tests and CI and stuff
