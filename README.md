@@ -40,4 +40,5 @@ season on Amazon video) in your browser, the icon will become green:
 
 ![Enabled icon](/images/logo-40.png?raw=true)
 
-When on a season page, click the extension icon and a dialog will appear.
+When on a season page, click the extension icon and a dialog will appear. Albeit the rest 
+should be fairly self-explanatory, a detailed manual can be found [here](MANUAL.md).

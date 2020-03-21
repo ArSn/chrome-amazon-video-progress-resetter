@@ -129,18 +129,6 @@ function reportResetFinished()
 	});
 }
 
-function verifyValidPage()
-{
-	if (!pageLooksLikeSeasonPage()) {
-		kazDebug('does not look like season page');
-		chrome.runtime.sendMessage({
-			text: "hide_page_action",
-		});
-	} else {
-		kazDebug('looks like season page');
-	}
-}
-
 chrome.runtime.onMessage.addListener(function (msg) {
 
 	kazDebug('message received');
@@ -148,25 +136,15 @@ chrome.runtime.onMessage.addListener(function (msg) {
 	if (msg.text === 'get_reset_confirmation') {
 		kazDebug('parsing ...');
 
-		// parseEpisodes();
-		// return;
-
 		if (pageLooksLikeSeasonPage()) {
-			// let confirmation = confirm('Are you sure you want to reset the progress?');
-			let confirmation = true; // just for debug
-			kazDebug('continue resetting? ', confirmation);
-
 			showDialog();
-
 		} else {
-			alert('No seasons found on this page');
+			alert('No episodes on this page seem to have any progress. Nothing to reset. Please open a season page that does have episodes where the progress can be reset.');
 		}
 	} else if (msg.text === 'report_reset_status') {
 		updateProgress(msg.totalEpisodeCount, msg.remainingEpisodeCount);
 	} else if (msg.text === 'report_reset_finished') {
 		reportResetFinished();
-	} else if (msg.text === 'verify_valid_page') {
-		// verifyValidPage();
 	}
 });
 
