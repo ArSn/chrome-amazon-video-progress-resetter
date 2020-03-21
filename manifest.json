@@ -10,6 +10,15 @@
     ],
     "persistent": false
   },
+  "icons": {
+    "20": "images/logo-20.png",
+    "40": "images/logo-40.png",
+    "48": "images/logo-40.png",
+    "60": "images/logo-60.png",
+    "80": "images/logo-80.png",
+    "200": "images/logo-200.png",
+    "668": "images/logo-668.png"
+  },
   "page_action": {
     "default_icon": {
       "20": "images/logo-20-gray.png",
