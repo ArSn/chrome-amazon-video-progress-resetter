@@ -1,7 +1,7 @@
 # Chrome Amazon Video Progress Resetter
 
 This is a browser extension to be used in [Google Chrome](https://www.google.com/chrome/), which allows the user to reset
-the watch progress of a video series on Amazon video.
+the watch progress of a video series on Amazon Video.
 
 Since there is currently no feature on Amazon to reset the progress of a series, the only
 option is to start each episode and stop it after a couple of seconds, so Amazon will reset
